@@ -29,6 +29,9 @@ jobs:
       - name: Run automated tests
         run: pytest
 
+      - name: Audit Python dependencies
+        run: pip-audit
+
       - name: Build Docker image
         run: docker build -t devops-saas-app .
 
