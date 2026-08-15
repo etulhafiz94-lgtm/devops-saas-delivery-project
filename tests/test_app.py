@@ -17,3 +17,24 @@ def test_get_tasks():
 
     assert response.status_code == 200
     assert isinstance(response.get_json(), list)
+
+
+def test_create_task():
+    client = app.test_client()
+
+    response = client.post(
+        "/tasks",
+        json={"title": "Learn Docker"}
+    )
+
+    assert response.status_code == 201
+    assert response.get_json()["title"] == "Learn Docker"
+
+
+def test_delete_task():
+    client = app.test_client()
+
+    response = client.delete("/tasks/1")
+
+    assert response.status_code == 200
+    assert response.get_json() == {"message": "Task deleted"}
