@@ -31,3 +31,20 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devops-saas-app .
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.15.8"
+
+      - name: Terraform Init
+        working-directory: infrastructure
+        run: terraform init -backend=false
+
+      - name: Terraform Format Check
+        working-directory: infrastructure
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        working-directory: infrastructure
+        run: terraform validate
